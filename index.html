@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Lencería · Mi Negocio</title>
+<title>Limnea Lencería · Mi Negocio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -723,7 +723,7 @@ body.dark .ob-logo-upload:hover{background:rgba(37,99,235,.1)}
       </svg>
     </div>
     <h1>Mi Negocio<br><em>en tiempo real</em></h1>
-    <p>Lencería · ventas por redes y envíos a todo el Perú</p>
+    <p>Limnea Lencería · ventas por redes y envíos a todo el Perú</p>
   </div>
   <div class="gold-stripe"></div>
   <div class="login-wrap" id="loginWrap">
@@ -1328,7 +1328,7 @@ body.dark .ob-logo-upload:hover{background:rgba(37,99,235,.1)}
 
 <script>
 // ══ CONFIG ═══════════════════════════════════════════════════════
-//  App personalizada · Nelida Ari · Lencería
+//  App personalizada · Nelida Lizbeth Ari Mamani · Limnea Lencería
 //  Acceso: solo el DNI de Nelida (y el DNI de soporte del profesor).
 //
 //  BIN PROPIO (no compartido con las demás emprendedoras):
@@ -1344,7 +1344,7 @@ const LS_KEY = 'nelida_ari_v1';        // copia local en el propio equipo
 const AUTOSAVE_MS = 5000;                // sube a la nube cada 5 segundos
 
 const ROSTER={
-  'REEMPLAZA_DNI':{n:'Nelida Ari',b:'Lencería'},
+  '73765671':{n:'Nelida Lizbeth Ari Mamani',b:'Limnea Lencería'},
 };
 
 const DEFAULT_LOGO='';   // sin logo fijo: lo sube ella en el primer ingreso
@@ -1400,7 +1400,7 @@ $('loginBtn').onclick=async()=>{
   // El DNI de administrador no esta en el ROSTER: se revisa ANTES de validarlo,
   // si no, caeria en "DNI no encontrado".
   if(d===ADMIN_DNI){ $('dniErr').textContent=''; show('scAdmin'); loadAdminData(); return; }
-  if(!ROSTER[d]){$('dniErr').textContent='DNI incorrecto. Esta app es de uso exclusivo de Lencería.';return;}
+  if(!ROSTER[d]){$('dniErr').textContent='DNI incorrecto. Esta app es de uso exclusivo de Limnea Lencería.';return;}
   CU={dni:d,...ROSTER[d]};
   $('msDate').value=todayStr();
   await loadData();
