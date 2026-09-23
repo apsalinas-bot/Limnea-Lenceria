@@ -410,10 +410,14 @@ label.fl{display:block;font-size:11px;font-weight:700;color:var(--muted);letter-
 .tb-biz{font-size:14px;font-weight:700;color:#fff}
 .tb-sub{font-size:10px;color:rgba(255,255,255,.55);margin-top:2px}
 .tb-right{display:flex;align-items:center;gap:8px}
-.logo-ring{width:64px;height:64px;border-radius:50%;background:transparent;border:2px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;overflow:hidden;flex-shrink:0}
-.logo-ring img{width:100%;height:100%;object-fit:cover;padding:0;border-radius:50%}
+.logo-ring{width:64px;height:64px;border-radius:14px;background:#fff;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;overflow:hidden;flex-shrink:0}
+.logo-ring img{width:100%;height:100%;object-fit:contain;padding:5px;box-sizing:border-box}
 .top-bar{padding:10px 16px}
 .tb-biz{font-size:15px}
+.top-bar>div:first-child{min-width:0;flex:1;margin-right:10px}
+.tb-biz{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sync-pill{white-space:nowrap}
 .sync-pill{font-size:9.5px;color:rgba(255,255,255,.7);margin-top:3px;letter-spacing:.2px;display:flex;align-items:center;gap:5px}
 .sdot{width:7px;height:7px;border-radius:50%;background:#10B981;flex:none;animation:lat 2.4s ease-in-out infinite}
 .sdot.warn{background:#F5A623;animation:lat 1s ease-in-out infinite}
@@ -1374,6 +1378,7 @@ let tT;
 
 // ══ UTILS ══════════════════════════════════════════════════════════
 const $=id=>document.getElementById(id);
+function nombreCorto(b){b=String(b||'');const m=/\(([^)]+)\)/.exec(b);return (m?m[1]:b).trim();}
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0);}
 function toast(m,ok2){const t=$('toast');t.textContent=m;t.style.borderColor=ok2?'var(--emer)':'';t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),2600);}
 function closeM(id){$(id).classList.remove('on');}
@@ -1410,7 +1415,7 @@ $('loginBtn').onclick=async()=>{
   await loadData();
   // apply profile
   const biz=DB.profile.biz||CU.b||CU.n;
-  $('tbBiz').textContent=biz.toUpperCase();
+  $('tbBiz').textContent=nombreCorto(biz).toUpperCase();
   $('tbName').innerHTML=CU.n+'<div class="sync-pill" id="syncPill"></div>';updPill();
   if(DB.profile.logo){const r=$('logoRing');r.innerHTML=`<img src="${DB.profile.logo}" alt="logo">`;r.onclick=()=>openProfile();}
   else{$('logoRing').onclick=()=>openProfile();}
@@ -1418,7 +1423,7 @@ $('loginBtn').onclick=async()=>{
   if(!DB.profile||!DB.profile.onboarded||!DB.profile.biz){
     startOnboarding();
   } else {
-    $('tbBiz').textContent=(DB.profile.biz||CU.b||CU.n).toUpperCase();
+    $('tbBiz').textContent=nombreCorto((DB.profile.biz||CU.b||CU.n)).toUpperCase();
     $('tbName').innerHTML=CU.n+'<div class="sync-pill" id="syncPill"></div>';updPill();
     if(DB.profile.logo){const r=$('logoRing');r.innerHTML=`<img src="${DB.profile.logo}" alt="logo">`;r.onclick=()=>switchTab('Neg');}
     else{$('logoRing').onclick=()=>switchTab('Neg');}
@@ -1527,7 +1532,7 @@ function obFinish(){
   DB.profile={...DB.profile,validity:$('obValidity').value,payment:$('obPayment').value,closing:$('obClosing').value.trim(),onboarded:true};
   saveData();
   // Update top bar
-  $('tbBiz').textContent=(DB.profile.biz||CU.b||CU.n).toUpperCase();
+  $('tbBiz').textContent=nombreCorto((DB.profile.biz||CU.b||CU.n)).toUpperCase();
   $('tbName').innerHTML=CU.n+'<div class="sync-pill" id="syncPill"></div>';updPill();
   // Update logo ring
   if(DB.profile.logo){
@@ -1593,7 +1598,7 @@ function autoPerfil(){
       biz:$('negBiz').value.trim()||DB.profile.biz,ruc:$('negRuc').value.trim(),tel:$('negTel').value.trim(),
       addr:$('negAddr').value.trim(),email:$('negEmail').value.trim(),
       validity:$('negValidity').value,payment:$('negPayment').value,closing:$('negClosing').value.trim()};
-    if(DB.profile.biz)$('tbBiz').textContent=DB.profile.biz.toUpperCase();
+    if(DB.profile.biz)$('tbBiz').textContent=nombreCorto(DB.profile.biz).toUpperCase();
     saveData();
   },1200);
 }
@@ -1612,7 +1617,7 @@ function saveProfileFull(){
     validity:$('negValidity').value,payment:$('negPayment').value,
     closing:$('negClosing').value.trim(),onboarded:true
   };
-  $('tbBiz').textContent=biz.toUpperCase();
+  $('tbBiz').textContent=nombreCorto(biz).toUpperCase();
   saveData();toast('✓ Perfil guardado',true);
 }
 function resetAllData(){
@@ -1645,7 +1650,7 @@ function openProfile(){
 }
 function saveProfile(){
   DB.profile={...DB.profile,biz:$('pfBiz').value.trim(),tel:$('pfTel').value.trim(),addr:$('pfAddr').value.trim(),email:$('pfEmail').value.trim()};
-  const biz=DB.profile.biz||CU.b||CU.n;$('tbBiz').textContent=biz;
+  const biz=DB.profile.biz||CU.b||CU.n;$('tbBiz').textContent=nombreCorto(biz).toUpperCase();
   saveData();closeM('mProfile');toast('✓ Perfil guardado',true);
 }
 
