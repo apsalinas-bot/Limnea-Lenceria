@@ -1732,9 +1732,15 @@ async function subirNube(){
   }catch(e){ fallo=true; }
   subiendo=false;updPill();
 }
+// Cada 5 s: si hay cambios, se suben; si no, se confirma que la nube está al día
+// y el indicador lo refleja ("hace un momento"), en vez de quedarse en la hora del último cambio.
+async function cicloGuardado(){
+  if(dirty){ await subirNube(); return; }
+  if(ok&&CU&&!subiendo&&!fallo&&ultimaNube&&navigator.onLine){ ultimaNube=Date.now(); updPill(); }
+}
 function iniciarAutoguardado(){
   clearInterval(autoTimer);
-  autoTimer=setInterval(subirNube,AUTOSAVE_MS);
+  autoTimer=setInterval(cicloGuardado,AUTOSAVE_MS);
   setInterval(updPill,1000);   // el indicador se mantiene vivo a la vista
   window.addEventListener('online',subirNube);
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')subirNube();});
