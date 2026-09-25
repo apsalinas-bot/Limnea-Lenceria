@@ -752,10 +752,6 @@ body.dark .ob-logo-upload:hover{background:rgba(37,99,235,.1)}
       <input class="inp" type="password" id="dniI" inputmode="numeric" placeholder="8 dígitos" autocomplete="off">
       <div class="err" id="dniErr"></div>
       <button class="btn btn-navy btn-full" id="loginBtn" style="margin-top:13px">Entrar →</button>
-      <div class="badges" style="margin-top:14px">
-        <span class="chip chip-navy">Módulo 3 · Gestión Comercial</span>
-        <span class="chip chip-gold">BCP × UCSP-CENDES</span>
-      </div>
     
       <!-- Card watermark — compass + UCSP shield -->
       <div class="card-wm">
@@ -818,7 +814,7 @@ body.dark .ob-logo-upload:hover{background:rgba(37,99,235,.1)}
 
     <!-- EASTER EGG FOOTER — triple tap to reveal -->
     <div class="egg-footer" id="eggFooter" onclick="eggTap()">
-      © 2026 · BCP × UCSP-CENDES
+      © 2026 · Linema Lencería
     </div>
   </div>
   <!-- EASTER EGG PANEL -->
@@ -3294,7 +3290,7 @@ function construirReporteS8(db, persona){
   const contacto=[P.tel,P.email,P.addr].filter(Boolean).map(escS8).join(' &middot; ');
   const header=
     '<div class="rep-head">'+
-      '<div class="rh-eyebrow">M\u00f3dulo 3 \u00b7 Gesti\u00f3n Comercial \u00b7 Sesi\u00f3n 8 \u00b7 BCP \u00d7 UCSP-CENDES</div>'+
+      
       '<div class="rh-row">'+
         '<div><div class="rh-biz">'+escS8(biz||'Mi negocio')+'</div>'+
         '<div class="rh-owner">'+escS8((persona&&persona.n)||'')+'</div>'+
